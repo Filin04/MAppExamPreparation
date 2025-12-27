@@ -1,0 +1,47 @@
+name: app
+description: "Prepare for the exam."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.7.0 <4.0.0"  # Обновил версию SDK
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  audioplayers: ^5.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  crypto: ^3.0.3
+  uuid: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/paper.png
+    - assets/images/handwritten_button.png
+    - assets/icons/hand_drawn_check.png
+    - assets/icons/hand_drawn_book.png
+    - assets/sounds/pen_click.mp3
+    - assets/sounds/page_flip.mp3
+
+  fonts:
+    - family: Klyakson
+      fonts:
+        - asset: assets/fonts/Klyakson.ttf
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+  android_12:
+    image_path: "assets/icons/app_icon.png"
