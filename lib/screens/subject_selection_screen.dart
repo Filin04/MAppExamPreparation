@@ -5,6 +5,7 @@ import 'math_screen.dart';
 import 'informatics_screen.dart';
 import 'biology_screen.dart';
 import 'obshchestvo_screen.dart';
+import 'statistics_screen.dart';
 
 class SubjectSelectionScreen extends StatelessWidget {
   const SubjectSelectionScreen({super.key});
@@ -25,6 +26,22 @@ class SubjectSelectionScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 75, 79, 163)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.bar_chart),
+            color: const Color.fromARGB(255, 75, 79, 163),
+            onPressed: () {
+              SoundManager.playPenClick();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const StatisticsScreen(),
+                ),
+              );
+            },
+            tooltip: 'Статистика',
+          ),
+        ],
       ),
       extendBodyBehindAppBar: true,
       body: Container(
