@@ -33,6 +33,7 @@ flutter:
     - assets/icons/hand_drawn_book.png
     - assets/sounds/pen_click.mp3
     - assets/sounds/page_flip.mp3
+    - assets/avatars/
 
   fonts:
     - family: Klyakson

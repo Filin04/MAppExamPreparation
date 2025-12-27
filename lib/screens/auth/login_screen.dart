@@ -20,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   
   // Контроллеры для регистрации
   final TextEditingController _registerEmailController = TextEditingController();
+  final TextEditingController _registerNameController = TextEditingController();
   final TextEditingController _registerPasswordController = TextEditingController();
   final TextEditingController _registerConfirmPasswordController = TextEditingController();
   
@@ -50,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     _loginEmailController.dispose();
     _loginPasswordController.dispose();
     _registerEmailController.dispose();
+    _registerNameController.dispose();
     _registerPasswordController.dispose();
     _registerConfirmPasswordController.dispose();
     super.dispose();
@@ -158,9 +160,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     SoundManager.playPenClick();
 
     try {
+      final name = _registerNameController.text.trim();
       final result = await _authService.register(
         _registerEmailController.text.trim(),
         _registerPasswordController.text,
+        name: name.isEmpty ? null : name,
       );
 
       if (!mounted) return;
@@ -424,13 +428,48 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                             width: 2,
                           ),
                         ),
-                      ),
-                      validator: _validateEmail,
-                      style: const TextStyle(fontFamily: 'Klyakson'),
                     ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: _registerPasswordController,
+                    validator: _validateEmail,
+                    style: const TextStyle(fontFamily: 'Klyakson'),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: _registerNameController,
+                    decoration: InputDecoration(
+                      labelText: 'Имя (необязательно)',
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Klyakson',
+                        color: Color.fromARGB(255, 75, 79, 163),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.person,
+                        color: Color.fromARGB(255, 75, 79, 163),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 75, 79, 163),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 75, 79, 163),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 75, 79, 163),
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    style: const TextStyle(fontFamily: 'Klyakson'),
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: _registerPasswordController,
                       obscureText: !_registerPasswordVisible,
                       decoration: InputDecoration(
                         labelText: 'Пароль',

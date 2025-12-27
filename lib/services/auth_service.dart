@@ -27,7 +27,11 @@ class AuthService {
 
   /// Регистрация нового пользователя
   /// Возвращает результат: true - успешно, false - email уже занят
-  Future<AuthResult> register(String email, String password) async {
+  Future<AuthResult> register(
+    String email,
+    String password, {
+    String? name,
+  }) async {
     // Проверяем, не существует ли уже пользователь с таким email
     if (_userRepository.emailExists(email)) {
       return AuthResult(
@@ -42,6 +46,8 @@ class AuthService {
       email: email.toLowerCase().trim(),
       hashedPassword: _hashPassword(password),
       createdAt: DateTime.now(),
+      name: name,
+      avatarId: User.defaultAvatarId, // Всегда используем значение по умолчанию для новых пользователей
     );
 
     // Сохраняем в базу данных
@@ -77,6 +83,11 @@ class AuthService {
         message: 'Неверный пароль',
       );
     }
+
+    // User.fromMap уже обрабатывает отсутствие полей name и avatarId, устанавливая значения по умолчанию
+    // Сохраняем пользователя обратно, чтобы новые поля были записаны в Hive (миграция данных)
+    // Это гарантирует, что при следующем входе все поля будут в БД
+    await _userRepository.save(user);
 
     // Входим
     _currentUser = user;
